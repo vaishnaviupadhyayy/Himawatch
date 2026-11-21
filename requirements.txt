@@ -1,0 +1,8 @@
+streamlit>=1.40,<2
+folium>=0.17,<1
+networkx>=3,<4
+osmnx>=2,<3
+pydeck>=0.9,<1
+Pillow>=10,<14
+numpy>=2,<3
+requests>=2.31,<3

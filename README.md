@@ -1,37 +1,151 @@
-HimaWatch — Evaluation Evidence Upgrade
-Team Silent Supernova · ASTRA 2026 · Domain 03
+# HimaWatch 🏔️
+### Geospatial Road Disruption & Restoration Analysis
 
-This package builds on the working HimaWatch Night Operations Streamlit app. It does not invent verified villages, populations, satellite observations or flood outcomes, and does not guarantee any judging score.
-Install (existing project, no new project folder)
-1. In your himawatch folder, keep data/chungthang_roads.graphml unchanged.
-2. Back up the working file: cp app.py app_before_evaluation.py.
-3. Replace only app.py with the provided updated file. Optionally replace .streamlit/config.toml and requirements.txt with the included versions.
-4. Copy verify_project.py beside app.py if you want a command-line local verification. This is not required for the app to start.
-5. With your virtual environment activated:python -m pip install -r requirements.txt
-   python verify_project.py
-   python -m streamlit run app.py
-New, measured evidence
-- Evaluation Evidence view: current scenario counts, independent graph-integrity checks, per-reference-point distances in kilometres only if all graph edge lengths are present, local layer provenance, downloadable human-readable evidence brief.
-- verify_project.py: verifies every mapped link's closure/restoration and NetworkX graph-bridge classification against the local graph, then confirms the five-column CSV schema. Checks are deterministic and do not contact a web service.
-- Original graph construction, critical-link detection, closure simulation, restoration, 4 directional corridor destinations and original CSV column values/order remain unchanged.
-- The dark/Himalayan design, map layers, offline Space void mode, optional Bhuvan/Bhoonidhi/MOSDAC overlay paths and existing footer remain present.
-What the checks DO NOT establish
-- Accuracy of OpenStreetMap roads or completeness of mapped roads.
-- Whether a real road is open, flooded, damaged, safe or traversable.
-- Whether directional road nodes are inhabited settlements, health posts, bridges or relief centres.
-- That locally supplied files are actually ISRO observations without provenance validation.
-- Any GLOF likelihood, flood depth, arrival times, number of people affected or emergency warning.
-High-mark gaps still requiring actual evidence
-1. Satellite use (important for ASTRA): Obtain a documented, georeferenced Bhuvan or CartoDEM/MOSDAC input relevant to the pilot; save its source, date and bounds. Use the supplied optional offline scripts to prepare/display overlays. Merely displaying an image without an analytical role is insufficient. Do not claim unverified sources.
-2. Meaningful destinations: Replace/further supplement directional reference points with verified settlement/facility positions and documented mapping/provenance. Keep the established legacy CSV results comparable until a separate analysis validates changes.
-3. Testing: On your Mac, check Mission Brief, Scenario Workspace, Critical Links, Evaluation Evidence, Data Layers, Satellite Context, 2D Night/Streets/Space void, 3D fallback, guided demo, reset, selection, and CSV/GeoJSON/TXT downloads.
-4. Deliverables: Publish a working hosted link, source repository, six-slide deck and recorded demo according to the event instructions. Verify the hosted app can load your GraphML and optional overlays.
-Suggested judge demonstration (90 seconds)
-- 0–15 seconds: Present the 2023 Sikkim GLOF transport-access problem; define HimaWatch as a scenario planner, not a prediction system.
-- 15–30: Show the mapped Chungthang road graph and explain OSMnx + NetworkX.
-- 30–50: Close a graph-critical connection; display reduced reachable nodes and an affected reference destination.
-- 50–65: Restore the same connection; show the inverse connectivity result and the destination status change.
-- 65–78: Open Evaluation Evidence; show source dates/limitations, reproducible checks and weighted distances when present.
-- 78–90: State the technical contribution and precisely what Indian satellite layer has or has not been integrated.
-Source and data honesty
-OSM roads: OpenStreetMap contributors; Bhuvan: ISRO/NRSC; Bhoonidhi CartoDEM: NRSC; MOSDAC GSMap ISRO: SAC-ISRO — credit satellite layers only when genuinely loaded and verified. The app uses optional overlays and does not authenticate to any provider. No actual population exposure or verified early warning is implemented.
+**Team Silent Supernova | ASTRA 2026 | VIT Bhopal University**
+
+**Domain:** Space-Based Disaster Management
+
+**[🚀 Live Application](https://himawatch.streamlit.app/)** | **[💻 GitHub Repository](https://github.com/vaishnaviupadhyayy/Himawatch)**
+
+---
+
+## Overview
+
+HimaWatch is an interactive geospatial planning prototype for studying how road-network disruptions can affect accessibility in mountainous regions.
+
+Inspired by the October 2023 South Lhonak Glacial Lake Outburst Flood (GLOF) in Sikkim, HimaWatch focuses on the road network around Chungthang.
+
+The application allows users to simulate hypothetical road closures, identify critical network connections, measure accessibility changes, and explore restoration scenarios.
+
+## Problem Statement
+
+Natural disasters in mountainous regions can disrupt transportation networks. The loss of a critical road connection may isolate parts of a network and complicate access to important destinations.
+
+HimaWatch investigates:
+
+**How can geospatial network analysis help identify vulnerable road connections and evaluate potential connectivity restoration after a disruption?**
+
+## Key Features
+
+- **Interactive road-network visualization:** Explore mapped roads around Chungthang using OpenStreetMap data.
+- **Critical-link detection:** Identify graph connections whose removal would disconnect parts of the network.
+- **Road-closure simulation:** Test hypothetical disruptions and observe changes in reachability.
+- **Destination accessibility:** Evaluate connectivity to representative corridor destinations.
+- **Restoration analysis:** Compare network access before closure, after closure, and after restoration.
+- **Distance comparison:** Analyze network route distances where suitable edge-length data is available.
+- **Data layers:** Support optional geospatial overlays with documented sources.
+- **Evaluation evidence:** View graph checks and export scenario results.
+- **Interactive dashboard:** A Himalayan night-themed interface with mapping and visualization controls.
+
+## Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Python | Core application and analytical logic |
+| Streamlit | Interactive web interface |
+| OSMnx | OpenStreetMap road-network acquisition |
+| NetworkX | Graph modelling, connectivity and bridge detection |
+| Folium | Interactive geospatial maps |
+| PyDeck | Optional 3D geospatial visualization |
+| GeoJSON / GraphML | Geospatial data storage and interchange |
+
+## System Workflow
+
+1. **Data acquisition:** Obtain mapped road-network data around Chungthang from OpenStreetMap using OSMnx.
+2. **Graph construction:** Represent road intersections and connections as nodes and edges.
+3. **Critical-link identification:** Use graph algorithms to identify connections critical to network connectivity.
+4. **Scenario simulation:** Remove selected connections from the model.
+5. **Accessibility analysis:** Recalculate nodes and representative destinations reachable from a reference hub.
+6. **Restoration:** Reintroduce connections and evaluate recovered accessibility.
+7. **Reporting:** Visualize and export results.
+
+## Verified Prototype Results
+
+The current Chungthang pilot dataset contains:
+
+| Metric | Result |
+|---|---:|
+| Road-network nodes | 34 |
+| Original directed edges | 70 |
+| Simplified physical links | 34 |
+| Graph-critical links | 30 |
+| Connected components before disruption | 1 |
+| Single-link closure/restoration checks | 34 passed |
+
+### Example: E001 Closure
+
+| Scenario | Nodes reachable from the reference hub |
+|---|---:|
+| Before closure | 34 |
+| After E001 closure | 25 |
+| After restoration | 34 |
+
+Removing E001 disconnects **9 network nodes** from the reference hub in this scenario. Restoring the link reconnects them.
+
+These results are derived from graph analysis and do not represent actual flood damage or the number of affected settlements or people.
+
+## Run Locally
+
+Clone the repository:
+
+```bash
+git clone https://github.com/vaishnaviupadhyayy/Himawatch.git
+cd Himawatch
+```
+
+Install dependencies:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Launch:
+
+```bash
+python -m streamlit run app.py
+```
+
+Open `http://localhost:8501`.
+
+### Verify the Network Analysis
+
+```bash
+python verify_project.py
+```
+
+This checks graph connectivity, single-link closure and restoration behaviour, and the existing CSV export schema.
+
+## Data Sources and Limitations
+
+**OpenStreetMap:** Supplies the mapped road-network geometry. OpenStreetMap contributors are credited as the data source.
+
+**Indian satellite-data sources:** The application provides optional integration paths for Bhuvan, Bhoonidhi/CartoDEM and MOSDAC data. These should not be interpreted as verified loaded satellite observations unless the corresponding datasets and provenance are present.
+
+HimaWatch is a research and demonstration prototype.
+
+It does not provide real-time road-condition monitoring, flood prediction, verified population exposure, emergency routing, or operational disaster warnings. Representative corridor points are not necessarily verified settlements or facilities.
+
+## Future Scope
+
+- Integrate validated Indian satellite-derived terrain and hazard layers.
+- Extend analysis to verified settlements, hospitals and emergency facilities.
+- Expand geographic coverage across additional Himalayan road networks.
+- Include multiple disruption scenarios and restoration-cost information.
+- Develop evidence-backed decision-support workflows with authoritative local data.
+
+## Team
+
+**Silent Supernova**
+
+- Vaishnavi Upadhyay
+- Vaanya Singh
+
+Developed for **ASTRA 2026 — Advanced Space Technology & Research Arena**, organised by ANTERiX Club at VIT Bhopal University.
+
+## Live Demo
+
+**https://himawatch.streamlit.app/**
+
+---
+
+*HimaWatch — Exploring road-network resilience through geospatial analysis.*
